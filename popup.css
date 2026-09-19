@@ -1,0 +1,334 @@
+/* Popup styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    max-width: 500px;
+    width: 90%;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+.popup-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1000;
+    max-width: 500px;
+    width: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.popup-title {
+    color: #2c3e50;
+    margin: 0 0 25px 0;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.popup-subtitle {
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.match-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+}
+
+/* Form Elements inside Popup */
+.popup-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.btn-primary, .btn-secondary {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-secondary {
+    background: red;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-secondary:hover {
+    background: rgb(222, 1, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.group-label, .team-label {
+    flex: 1 1 120px;
+    text-align: center;
+}
+
+.set-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.set-container input {
+    flex: 1 1 40px;
+    max-width: 60px;
+}
+
+.date-official-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.official-search {
+    min-width: 150px;
+    flex: 1;
+    padding: 4px 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.delete-match {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #cf4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Search Popup Styles */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.match-search {
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    color: #888;
+    cursor: pointer;
+}
+
+/* Utilities */
+.hidden {
+    display: none;
+}
+
+.popup-fade {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+/* Batch Input Styles (Existing) */
+.input-container {
+    max-width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.score-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    width: 40px;
+}
+
+h3 {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.instructions {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.instructions p {
+    margin: 5px 0;
+    color: #495057;
+}
+
+.instructions pre {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.batch-textarea {
+    width: 90%;
+    padding: 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 14px;
+    margin-bottom: 15px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.batch-textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.process-button {
+    width: 100%;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.process-button:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.process-result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: monospace;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.result-item {
+    padding: 8px;
+    margin: 4px 0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.result-item.success {
+    background: #d4edda;
+}
+
+.result-item.error {
+    background: #f8d7da;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .popup {
+        width: 80%;
+        padding: 20px;
+    }
+
+    .group-label, .team-label, .set-container, .date-official-container {
+        width: 100%;
+    }
+
+    .set-container {
+        justify-content: center;
+    }
+
+    .delete-match {
+        align-self: center;
+        width: 100%;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .match-search {
+        width: 100%;
+    }
+}
