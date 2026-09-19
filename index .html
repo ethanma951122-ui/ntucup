@@ -1,465 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="volleyball.png" type="image/png">
-    <link rel="stylesheet" href="popup.css">
-    <title>NTU Cup Calendar</title>
+    <title>NTU 男排盃 - 賽程查詢</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f4f4f9;
-        }
-
-        .match-container {
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            background: #f9f9f9;
-        }
-
-        .scrollable-matches {
-            max-height: calc(8 * 40px); /* Assuming each match row is 40px tall */
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            padding: 10px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Optional: Style for each match item */
-        .match-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .match-item:hover {
-            background: #f0f0f0;
-        }
-
-        .match-item-dated{
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            background: #e2e2e2;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .match-item-dated:hover {
-            background: #818181;
-        }
-
-        /* Calendar Styles */
-        .calendar-container {
-            margin-top: 20px;
-        }
-        
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-
-        .weekday-header {
-            text-align: center;
-            font-weight: bold;
-            padding: 10px;
-            background: #f0f0f0;
-        }
-
-        .calendar-day {
-            min-height: 100px;
-            border: 1px solid #ddd;
-            padding: 5px;
-            background: white;
-        }
-
-        .calendar-day.other-month {
-            background: #f5f5f5;
-            color: #3c3c3c;
-        }
-
-        .calendar-date {
-            font-size: 0.8em;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .calendar-matches {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .calendar-match {
-            text-align: center;
-            background: #ccc4ff;
-            padding: 5px;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-
-        .calendar-match:hover{
-            background: #b0a3ff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        #calendar-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
-        }
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .action-btn:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        /* Phone/Small screen styles */
-        @media (max-width: 600px) {
-            .calendar-header {
-            flex-direction: row;
-            gap: 4px;
-            }
-            .calendar-grid,
-            #calendar-days {
-            grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
-            }
-            .weekday-header {
-            font-size: 0.95fr;
-            padding: 7px;
-            }
-            .calendar-day {
-            min-height: 50px;
-            padding: 3px;
-            font-size: 0.3em;
-            }
-            .calendar-date {
-            font-size: 0.9em;
-            }
-            .calendar-match {
-            font-size: 8px;
-            padding: 1px;
-            border-radius: 1.5px;
-            }
-            .action-btn {
-            width: 25%;
-            justify-content: center;
-            padding: 8px 4px;
-            font-size: 12px;
-            }
-        }
-
-        /* Make it more responsive */
-        @media (max-width: 768px) {
-            .action-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-        }
-        .newbie-cup{
-            background: #b3e6ff;
-        }
-        .newbie-cup{
-            background: #b3e6ff;
-            transition: background 0.2s;
-        }
-        .newbie-cup:hover {
-            background: #7fd0fa;
-        }
-        .finished {
-            background: #888888;
-            color: black;
-        }
-        .unfinished {
-            background: #f39c12;
-            color: black;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { background: #667eea; color: white; padding: 30px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
+        .controls { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .search-box { flex: 1; min-width: 200px; }
+        .search-box input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #764ba2; }
+        .content { background: white; padding: 20px; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #667eea; color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #ddd; }
+        tr:hover { background: #f5f5f5; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .no-data { text-align: center; color: #999; padding: 40px; }
+        .group-section { margin-bottom: 30px; }
+        .group-title { background: #667eea; color: white; padding: 15px; border-radius: 5px; margin-bottom: 15px; font-weight: bold; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .team-card { background: #f9f9f9; padding: 15px; border-radius: 5px; border: 1px solid #ddd; text-align: center; }
     </style>
-
-    <!-- Add Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css">
-    <link rel="stylesheet" href="header.css">
-    <link rel="stylesheet" href="darkmode.css">
 </head>
 <body>
-    <script src = 'dataStorage.js'></script>
-    <script src = 'Matchinfo.js'></script>
-    <header id="sticky-header" class="sticky-header">
-        <h2 style="cursor: pointer">NTU Cup System</h2>
-        <div class="navigation">
-            <a href="brackets.html" class="nav-link">
-                <i class="fas fa-chart-bar"></i>
-                <span class="nav-text">Brackets</span>
-            </a>
-            <a href="teamProfiles.html" class="nav-link">
-                <i class="fas fa-user-group"></i>
-                <span class="nav-text">NTUCup Teams</span>
-            </a>
-            <!-- <a href="teamProfiles_Newbie.html" class="nav-link">
-                <i class="fas fa-user-group"></i>
-                <span class="nav-text">Newbie Teams</span>
-            </a> -->
+    <div class="container">
+        <header><h1>🏐 NTU 男排盃</h1><p>賽程查詢系統</p></header>
+        <div class="controls">
+            <div class="search-box"><input type="text" id="searchInput" placeholder="搜尋隊伍..."></div>
+            <button onclick="switchTab('schedule')">賽程表</button>
+            <button onclick="switchTab('ranking')">排名</button>
+            <button onclick="switchTab('teams')">分組</button>
         </div>
-    </header>
-    <!-- Popup structure -->
-    <div class="popup-overlay hidden" id="popup-overlay"></div>
-    <div class="popup hidden" id="popup"></div>
-
-    <!-- Add Calendar View -->
-    <div class="calendar-container">
-        <header class="calendar-header" role="banner" aria-label="Calendar controls">
-            <button id="prev-month" class="action-btn" aria-label="Previous month">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <h3 id="current-month" class="calendar-title" aria-live="polite"></h3>
-            <button id="next-month" class="action-btn" aria-label="Next month">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </header>
-        <div class="calendar-grid">
-            <div class="weekday-header">Sun</div>
-            <div class="weekday-header">Mon</div>
-            <div class="weekday-header">Tue</div>
-            <div class="weekday-header">Wed</div>
-            <div class="weekday-header">Thu</div>
-            <div class="weekday-header">Fri</div>
-            <div class="weekday-header">Sat</div>
+        <div class="content">
+            <div id="loading">⏳ 加載中...</div>
+            <div id="schedule" class="tab-content active"><table><thead><tr><th>日期</th><th>A隊</th><th>B隊</th><th>成績</th><th>狀態</th></tr></thead><tbody id="scheduleBody"></tbody></table></div>
+            <div id="ranking" class="tab-content"><table><thead><tr><th>排名</th><th>隊伍</th><th>勝</th><th>負</th></tr></thead><tbody id="rankingBody"></tbody></table></div>
+            <div id="teams" class="tab-content"><div id="teamsContainer"></div></div>
         </div>
-        <div id="calendar-days"></div>
-        <p>Last updated: <span id="last-updated"></span></p>
     </div>
-
-    <!-- Footer Placeholder -->
-    <div id="footer-placeholder"></div>
-    <script>fetch('footer.html').then(response => response.text()).then(data => document.getElementById('footer-placeholder').innerHTML = data);</script>
-
     <script>
-        const raw = localStorage.getItem('initialized');
-        let display = 'Never';
-        if (raw) {
+        const DATA_URL = 'https://raw.githubusercontent.com/ethanma951122-ui/ntucup/main/data.json';
+        let allData = null;
+
+        async function init() {
             try {
-                display = JSON.parse(raw);
+                const response = await fetch(DATA_URL);
+                const rawData = await response.json();
+                allData = parseData(rawData);
+                document.getElementById('loading').style.display = 'none';
+                renderSchedule();
+                renderRanking();
+                renderTeams();
             } catch (e) {
-                display = raw;
-            }
-        }
-        document.getElementById('last-updated').textContent = display;
-    </script>
-    <script>
-        const now = new Date();
-        const keyword = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}-${String(now.getHours()).padStart(2,'0')}-${String(now.getMinutes()).padStart(2,'0')}`; // YYYY-MM-DD-HH-mm (local time)
-        // Load initial data from backup file
-        readFile(keyword);
-
-        let currentDate = new Date();
-
-        function renderCalendar() {
-            const matches = fetchMatches();
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            
-            // Update header
-            document.getElementById('current-month').textContent = 
-                new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' });
-            
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            const daysContainer = document.getElementById('calendar-days');
-            daysContainer.innerHTML = '';   
-            
-            // Add padding days from previous month
-            const firstDayOfWeek = firstDay.getDay();
-            const prevMonthLastDay = new Date(year, month, 0).getDate();
-            const prevMonth = month === 0 ? 11 : month - 1;
-            const prevMonthYear = month === 0 ? year - 1 : year;
-            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
-                const day = prevMonthLastDay - i;
-                const dateStr = `${prevMonthYear}-${String(prevMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const dayDiv = createDayDiv(prevMonthLastDay - i, true, dateStr);
-                // Add matches for this day
-                const dayMatches = Object.values(matches).filter(match => match.date === dateStr);
-                const matchesContainer = dayDiv.querySelector('.calendar-matches');
-                dayMatches.forEach(match => {
-                    createMatchDiv(match, dayDiv, matchesContainer, dateStr);
-                });
-                daysContainer.appendChild(dayDiv);
-            }
-            
-            // Add current month days
-            for (let day = 1; day <= lastDay.getDate(); day++) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const dayDiv = createDayDiv(day, false, dateStr);
-                // Add matches for this day
-                const dayMatches = Object.values(matches).filter(match => match.date === dateStr);
-                const matchesContainer = dayDiv.querySelector('.calendar-matches');
-                dayMatches.forEach(match => {
-                    createMatchDiv(match, dayDiv, matchesContainer, dateStr);
-                });
-                daysContainer.appendChild(dayDiv);
-            }
-            
-            // Add padding days from next month
-            const lastDayOfWeek = lastDay.getDay();
-            const nextMonthYear = (month + 1 > 11) ? year + 1 : year;
-            for (let i = 1; i < 7 - lastDayOfWeek; i++) {
-                const dateStr = `${nextMonthYear}-${String((month + 2)%12).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-                const dayDiv = createDayDiv(i, true, dateStr);
-                // Add matches for this day
-                const dayMatches = Object.values(matches).filter(match => match.date === dateStr);
-                const matchesContainer = dayDiv.querySelector('.calendar-matches');
-                dayMatches.forEach(match => {
-                    createMatchDiv(match, dayDiv, matchesContainer, dateStr);
-                });
-                daysContainer.appendChild(dayDiv);
+                document.getElementById('loading').innerHTML = '❌ 無法加載數據';
             }
         }
 
-        function createDayDiv(day, isOtherMonth, dateStr) {
-            const dayDiv = document.createElement('div');
-            dayDiv.className = `calendar-day${isOtherMonth ? ' other-month' : ''}`;
-            if (dateStr === '2005-04-01'){
-                dayDiv.innerHTML = `
-                    <div class="calendar-date">${day}</div>
-                    <p> Andrew Kuo's Birthday 🎉</p>
-                    <p> Site Made by Andrew Kuo</p>
-                    <div class="calendar-matches"></div>
-                `;
-            }else{
-                dayDiv.innerHTML = `
-                    <div class="calendar-date">${day}</div>
-                    <div class="calendar-matches"></div>
-                `;
-            }
-            return dayDiv;
+        function parseData(rawData) {
+            const parse = (v) => typeof v === 'string' ? JSON.parse(v) : v;
+            return {
+                teams: parse(rawData.teams || '{}'),
+                newbieTeams: parse(rawData.newbieTeams || '{}'),
+                matches: parse(rawData.matches || '[]'),
+            };
         }
 
-        function createMatchDiv(match, dayDiv, matchesContainer, dateStr){
-            const matchDiv = document.createElement('div');
-            matchDiv.className = 'calendar-match';
-            if(match.newbie) {
-                matchDiv.classList.add('newbie-cup');
-            }
-            // Parse the first two characters of team IDs
-            const teamAFirst2 = match.teamAID ? match.teamAID.substring(0, 2) : '';
-            const teamBFirst2 = match.teamBID ? match.teamBID.substring(0, 2) : '';
-            const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        function renderSchedule() {
+            const body = document.getElementById('scheduleBody');
+            let matches = allData.matches;
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            if (term) matches = matches.filter(m => (m.teamAID?.toLowerCase().includes(term)) || (m.teamBID?.toLowerCase().includes(term)));
+            
+            body.innerHTML = matches.length ? matches.map(m => {
+                const score = m.status ? `${m.set1[0]}-${m.set1[1]}, ${m.set2[0]}-${m.set2[1]}, ${m.set3[0]}-${m.set3[1]}` : '-';
+                return `<tr><td>${m.date || '-'}</td><td>${m.teamAID || '-'}</td><td>${m.teamBID || '-'}</td><td>${score}</td><td>${m.status ? '✅' : '⏳'}</td></tr>`;
+            }).join('') : '<tr><td colspan="5" class="no-data">沒有比賽</td></tr>';
+        }
 
-            if (match.status) {
-                matchDiv.classList.add('finished');
-            } else if (match.set1 && match.set1[0] !== 0 && match.set1[1] !== 0) {
-                matchDiv.classList.remove('finished');
-                matchDiv.classList.add('unfinished');
-            }
-            // textContent based on conditions
-            if (match.teamAID === match.teamBID) {
-                matchDiv.textContent = window.innerWidth <= 600 ? match.teamAID.substring(0, 3) : match.teamAID;
-                matchDiv.style.background = '#888888'; // Highlight in dark grey for same team matches
-            }else if (window.innerWidth <= 600) {
-                const winnerId = match.winner;
-                let aHtml = teamAFirst2;
-                let bHtml = teamBFirst2;
-                aHtml = `${aHtml}`;
-                bHtml = `${bHtml}`;
-                if (winnerId === match.teamAID) {
-                    aHtml = `<strong>${aHtml}</strong>`;
-                } else if (winnerId === match.teamBID) {
-                    bHtml = `<strong>${bHtml}</strong>`;
+        function renderRanking() {
+            const body = document.getElementById('rankingBody');
+            const stats = {};
+            const allTeams = { ...allData.teams, ...allData.newbieTeams };
+            Object.keys(allTeams).forEach(t => stats[t] = { w: 0, l: 0 });
+            allData.matches.forEach(m => {
+                if (m.status && m.winner) {
+                    if (m.teamAID && stats[m.teamAID]) stats[m.teamAID][m.winner === m.teamAID ? 'w' : 'l']++;
+                    if (m.teamBID && stats[m.teamBID]) stats[m.teamBID][m.winner === m.teamBID ? 'w' : 'l']++;
                 }
-                matchDiv.innerHTML = `${aHtml} ${bHtml}`;
-            } else {
-                const winnerId = match.winner;
-                let aHtml = match.teamAID;
-                let bHtml = match.teamBID;
-                if (winnerId === match.teamAID) {
-                    aHtml = `<strong>${aHtml}</strong>`;
-                } else if (winnerId === match.teamBID) {
-                    bHtml = `<strong>${bHtml}</strong>`;
-                }
-                matchDiv.innerHTML = `${match.group}: ${aHtml} vs ${bHtml} - ${match.official || 'No Official'}`;
-            }
-            if (match.locked === undefined) {
-                match.locked = false; // Initialize if undefined
-            }
-            // Long press to lock/unlock the match
-            let longPressTimer;
-            matchDiv.addEventListener('mouseup', () => clearTimeout(longPressTimer));
-            matchesContainer.appendChild(matchDiv);
-            // Show the popup
-            showMatchinfo(matchDiv, match);
-            
+            });
+            const ranking = Object.entries(stats).filter(([,s]) => s.w + s.l > 0).sort(([,a], [,b]) => b.w - a.w || a.l - b.l);
+            body.innerHTML = ranking.length ? ranking.map(([t, s], i) => `<tr><td>#${i+1}</td><td>${t}</td><td>${s.w}</td><td>${s.l}</td></tr>`).join('') : '<tr><td colspan="4" class="no-data">暫無數據</td></tr>';
         }
 
-
-        // Add event listeners
-        document.getElementById('prev-month').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
-        });
-
-        document.getElementById('next-month').addEventListener('click', () => {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
-        });
-
-        // Initialize calendar
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCalendar();
-        });
-
-        function readFile(keyword){
-            if (localStorage.getItem('initialized') !== JSON.stringify(keyword)) {
-                setTimeout(() => {}, 200);
-                localStorage.setItem('initialized', JSON.stringify(keyword));
-                setTimeout(() => {}, 200);
-                fetch('data.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        for (const key in data) {
-                            if (key === 'initialized') continue; // Skip the 'initialized' key
-                            localStorage.setItem(key, data[key]);
-                        }
-                        setTimeout(() => {}, 200);
-                        location.reload();
-                    })
-                    .catch(error => console.error('Error loading backup file:', error)
-                );
-            }
+        function renderTeams() {
+            const container = document.getElementById('teamsContainer');
+            const allTeams = { ...allData.teams, ...allData.newbieTeams };
+            const groups = {};
+            Object.entries(allTeams).forEach(([t, d]) => {
+                const g = d.preliminaryGroup || '未分組';
+                (groups[g] ||= []).push(t);
+            });
+            container.innerHTML = Object.entries(groups).map(([g, teams]) => `
+                <div class="group-section">
+                    <div class="group-title">📍 ${g}</div>
+                    <div class="team-grid">${teams.map(t => `<div class="team-card">${t}</div>`).join('')}</div>
+                </div>
+            `).join('');
         }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', renderSchedule);
+        init();
     </script>
 </body>
 </html>
